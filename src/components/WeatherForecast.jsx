@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_FORECAST_URL, API_KEY } from '../constants';
+import PropTypes from 'prop-types'
 
 export const WeatherForecast = ({ location, units }) => {
   const [forecast, setForecast] = useState([]);
@@ -46,3 +47,11 @@ export const WeatherForecast = ({ location, units }) => {
     </div>
   );
 };
+
+WeatherForecast.propTypes = {
+  location: PropTypes.string.isRequired,
+  units: PropTypes.shape({
+    apiUnitValue: PropTypes.string.isRequired,
+    symbol: PropTypes.string.isRequired
+  })
+}

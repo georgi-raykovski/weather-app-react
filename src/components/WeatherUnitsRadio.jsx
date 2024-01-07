@@ -1,5 +1,6 @@
 import React from 'react';
 import { weatherUnits } from '../constants';
+import PropTypes from 'prop-types';
 
 export const WeatherUnitsRadio = ({ handleTemperatureUnitChange, selected }) => {
   return (
@@ -40,3 +41,8 @@ export const WeatherUnitsRadio = ({ handleTemperatureUnitChange, selected }) => 
     </div>
   );
 };
+
+WeatherUnitsRadio.propTypes = {
+  selected: PropTypes.string.isRequired,
+  handleTemperatureUnitChange: PropTypes.func
+}

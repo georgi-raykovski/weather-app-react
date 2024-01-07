@@ -9,7 +9,7 @@ const getApiRoute = (isZipCode, location, units) =>
   isZipCode
     ? `${API_WEATHER_URL}?zip=${location}&appid=${API_KEY}&units=${units}`
     : `${API_WEATHER_URL}?q=${location}&appid=${API_KEY}&units=${units}`;
-;
+
 
 const App = () => {
   const [weatherData, setWeatherData] = useState();
