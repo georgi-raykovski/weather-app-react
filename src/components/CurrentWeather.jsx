@@ -2,9 +2,8 @@ import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import PropTypes from 'prop-types';
 
-const capitalizeEveryWord = (sentence) => {
-  return sentence.replace(/\b\w/g, (match) => match.toUpperCase());
-};
+const capitalizeEveryWord = (sentence) =>
+  sentence.replace(/\b\w/g, (match) => match.toUpperCase());
 
 export const CurrentWeather = ({ weatherData, units }) => {
   return (

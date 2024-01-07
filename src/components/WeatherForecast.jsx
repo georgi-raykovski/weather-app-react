@@ -1,39 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { API_FORECAST_URL, API_KEY } from '../constants';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 export const WeatherForecast = ({ location, units }) => {
   const [forecast, setForecast] = useState([]);
 
-  useEffect(() => {
-    const getWeatherForecast = async () => {
-      const apiUrl = `${API_FORECAST_URL}?q=${location}&appid=${API_KEY}&units=${units.apiUnitValue}`;
+  const getWeatherForecast = useCallback(async () => {
+    const apiUrl = `${API_FORECAST_URL}?q=${location}&appid=${API_KEY}&units=${units.apiUnitValue}`;
 
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
 
-        if (data.cod !== '200') return;
+      if (data.cod !== '200') return;
 
-        const forecasts = data.list.filter(entry => entry.dt_txt.includes('12:00:00'));
-        setForecast(forecasts);
-      } catch (error) {
-        console.error('Error fetching weather data:', error);
-      }
-    };
-
-    getWeatherForecast();
+      const forecasts = data.list.filter((entry) =>
+        entry.dt_txt.includes('12:00:00')
+      );
+      setForecast(forecasts);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+    }
   }, [location, units.apiUnitValue]);
 
+  useEffect(() => {
+    getWeatherForecast();
+  }, [getWeatherForecast, location, units.apiUnitValue]);
+
   return (
-    <div className='p-8 flex flex-col gap-2'>
+    <div className='px-8 flex flex-col gap-2'>
       <h2>5-Day Weather Forecast</h2>
       <div className='flex'>
-        {forecast.map(day => (
-          <div key={day.dt} className="flex flex-col items-center gap-0.5">
-            <h3>{new Date(day.dt_txt).toLocaleDateString('en-US', { weekday: 'long' })}</h3>
-            <p>High: {day.main.temp_max}°{units.symbol}</p>
-            <p>Low: {day.main.temp_min}°{units.symbol}</p>
+        {forecast.map((day) => (
+          <div key={day.dt} className='flex flex-col items-center gap-0.5'>
+            <h3>
+              {new Date(day.dt_txt).toLocaleDateString('en-US', {
+                weekday: 'long',
+              })}
+            </h3>
+            <p>
+              High: {day.main.temp_max}°{units.symbol}
+            </p>
+            <p>
+              Low: {day.main.temp_min}°{units.symbol}
+            </p>
             <p>{day.weather[0].description}</p>
             <div>
               <img
@@ -52,6 +62,6 @@ WeatherForecast.propTypes = {
   location: PropTypes.string.isRequired,
   units: PropTypes.shape({
     apiUnitValue: PropTypes.string.isRequired,
-    symbol: PropTypes.string.isRequired
-  })
-}
+    symbol: PropTypes.string.isRequired,
+  }),
+};
