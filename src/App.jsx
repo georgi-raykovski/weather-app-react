@@ -14,6 +14,8 @@ import {
 
 const debounceDelay = 300;
 
+const inputStyle = "bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+
 const getApiRoute = (isZipCode, location, units) =>
   isZipCode
     ? `${API_WEATHER_URL}?zip=${location}&appid=${API_KEY}&units=${units}`
@@ -27,7 +29,7 @@ const App = () => {
   const [weatherDataLoading, setWeatherDataLoading] = useState(true);
   const [forecastLoading, setForecastLoading] = useState(true);
 
-  const fetchData = useCallback(async () => {
+  const fetctCurrentWeatherData = useCallback(async () => {
     try {
       const isZipCode = /^\d+$/.test(location);
 
@@ -48,7 +50,7 @@ const App = () => {
     }
   }, [location, units]);
 
-  const getWeatherForecast = useCallback(async () => {
+  const fetchWeatherForecast = useCallback(async () => {
     const apiUrl = `${API_FORECAST_URL}?q=${location}&appid=${API_KEY}&units=${units.apiUnitValue}`;
 
     try {
@@ -72,17 +74,17 @@ const App = () => {
     setForecast([]);
     setForecastLoading(true);
     setWeatherDataLoading(true);
-    if (!location) return;
+    // if (!location) return;
 
     const debounceTimer = setTimeout(() => {
-      fetchData();
-      getWeatherForecast();
+      fetctCurrentWeatherData();
+      fetchWeatherForecast();
     }, debounceDelay);
 
     return () => {
       clearTimeout(debounceTimer);
     };
-  }, [location, fetchData, getWeatherForecast]);
+  }, [location, fetctCurrentWeatherData, fetchWeatherForecast]);
 
   const handleCityChange = (event) => {
     setLocation(event.target.value);
@@ -93,20 +95,14 @@ const App = () => {
   };
 
   const showSkeletons = forecastLoading || weatherDataLoading;
-  console.log(forecastLoading, weatherDataLoading, showSkeletons);
 
   return (
     <div className='App h-screen p-8 max-w-4xl m-auto'>
       <h1 className='text-4xl'>Weather App</h1>
       <div className='mt-6 flex justify-between'>
         <div>
-          <label htmlFor='city'>Enter City:</label>
-          <input
-            type='text'
-            id='city'
-            value={location}
-            onChange={handleCityChange}
-          />
+          <label className='mr-4' htmlFor='city'>Enter City:</label>
+          <input className={inputStyle} id='city' type="text" value={location} onChange={handleCityChange} />
         </div>
         <WeatherUnitsRadio
           handleTemperatureUnitChange={handleTemperatureUnitChange}

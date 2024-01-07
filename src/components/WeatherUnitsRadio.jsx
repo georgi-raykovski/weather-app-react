@@ -19,7 +19,7 @@ export const WeatherUnitsRadio = ({
           id='celcius'
           checked={selected === weatherUnits.celcius.name}
           onChange={handleTemperatureUnitChange}
-          className='peer hidden'
+          className='peer sr-only'
         />
         <label htmlFor='celcius' className={labelStyles}>
           Celsius
@@ -33,7 +33,7 @@ export const WeatherUnitsRadio = ({
           id='fahrenheit'
           checked={selected === weatherUnits.fahrenheit.name}
           onChange={handleTemperatureUnitChange}
-          className='peer hidden'
+          className='peer sr-only'
         />
         <label htmlFor='fahrenheit' className={labelStyles}>
           Fahrenheit
@@ -47,7 +47,7 @@ export const WeatherUnitsRadio = ({
           id='kelvin'
           checked={selected === weatherUnits.kelvin.name}
           onChange={handleTemperatureUnitChange}
-          className='peer hidden'
+          className='peer sr-only'
         />
         <label htmlFor='kelvin' className={labelStyles}>
           Kelvin
