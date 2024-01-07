@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   CurrentWeather,
+  SkeletonComponent,
   WeatherForecast,
   WeatherUnitsRadio,
 } from './components';
-import { API_KEY, API_WEATHER_URL, weatherUnits } from './constants';
+import {
+  API_FORECAST_URL,
+  API_KEY,
+  API_WEATHER_URL,
+  weatherUnits,
+} from './constants';
 
 const debounceDelay = 300;
 
@@ -17,6 +23,9 @@ const App = () => {
   const [weatherData, setWeatherData] = useState();
   const [location, setLocation] = useState('London');
   const [units, setUnits] = useState(weatherUnits.celcius);
+  const [forecast, setForecast] = useState([]);
+  const [weatherDataLoading, setWeatherDataLoading] = useState(true);
+  const [forecastLoading, setForecastLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     try {
@@ -33,23 +42,47 @@ const App = () => {
       }
 
       setWeatherData(data);
+      setWeatherDataLoading(false);
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
   }, [location, units]);
 
+  const getWeatherForecast = useCallback(async () => {
+    const apiUrl = `${API_FORECAST_URL}?q=${location}&appid=${API_KEY}&units=${units.apiUnitValue}`;
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      if (data.cod !== '200') return;
+
+      const forecasts = data.list.filter((entry) =>
+        entry.dt_txt.includes('12:00:00')
+      );
+      setForecast(forecasts);
+      setForecastLoading(false);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+    }
+  }, [location, units.apiUnitValue]);
+
   useEffect(() => {
     setWeatherData(null);
+    setForecast([]);
+    setForecastLoading(true);
+    setWeatherDataLoading(true);
     if (!location) return;
 
     const debounceTimer = setTimeout(() => {
       fetchData();
+      getWeatherForecast();
     }, debounceDelay);
 
     return () => {
       clearTimeout(debounceTimer);
     };
-  }, [location, fetchData]);
+  }, [location, fetchData, getWeatherForecast]);
 
   const handleCityChange = (event) => {
     setLocation(event.target.value);
@@ -58,6 +91,9 @@ const App = () => {
   const handleTemperatureUnitChange = (event) => {
     setUnits(weatherUnits[event.target.value]);
   };
+
+  const showSkeletons = forecastLoading || weatherDataLoading;
+  console.log(forecastLoading, weatherDataLoading, showSkeletons);
 
   return (
     <div className='App h-screen p-8 max-w-4xl m-auto'>
@@ -78,8 +114,13 @@ const App = () => {
         />
       </div>
       <div className='flex flex-col justify-between'>
-        <CurrentWeather units={units} weatherData={weatherData} />
-        <WeatherForecast location={location} units={units} />
+        {showSkeletons && <SkeletonComponent />}
+        {!showSkeletons && (
+          <>
+            <CurrentWeather units={units} weatherData={weatherData} />
+            <WeatherForecast units={units} forecast={forecast} />
+          </>
+        )}
       </div>
     </div>
   );
