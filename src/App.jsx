@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './styles/App.css';
 import {
   CurrentWeather,
   WeatherForecast,
@@ -16,7 +15,7 @@ const getApiRoute = (isZipCode, location, units) =>
 
 const App = () => {
   const [weatherData, setWeatherData] = useState();
-  const [location, setLocation] = useState('London'); // Default city
+  const [location, setLocation] = useState('London');
   const [units, setUnits] = useState(weatherUnits.celcius);
 
   const fetchData = useCallback(async () => {
@@ -61,22 +60,24 @@ const App = () => {
   };
 
   return (
-    <div className='App'>
-      <h1>Weather App</h1>
-      <div>
-        <label htmlFor='city'>Enter City:</label>
-        <input
-          type='text'
-          id='city'
-          value={location}
-          onChange={handleCityChange}
+    <div className='App h-screen p-8 max-w-4xl m-auto'>
+      <h1 className='text-4xl'>Weather App</h1>
+      <div className='mt-6 flex justify-between'>
+        <div>
+          <label htmlFor='city'>Enter City:</label>
+          <input
+            type='text'
+            id='city'
+            value={location}
+            onChange={handleCityChange}
+          />
+        </div>
+        <WeatherUnitsRadio
+          handleTemperatureUnitChange={handleTemperatureUnitChange}
+          selected={units.name}
         />
       </div>
-      <WeatherUnitsRadio
-        handleTemperatureUnitChange={handleTemperatureUnitChange}
-        selected={units.name}
-      />
-      <div className='flex flex-col items-center justify-between'>
+      <div className='flex flex-col justify-between'>
         <CurrentWeather units={units} weatherData={weatherData} />
         <WeatherForecast location={location} units={units} />
       </div>

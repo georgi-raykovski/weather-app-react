@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { API_FORECAST_URL, API_KEY } from '../constants';
 import PropTypes from 'prop-types';
+import { WeatherCard } from './WeatherCard';
 
 export const WeatherForecast = ({ location, units }) => {
   const [forecast, setForecast] = useState([]);
+  const apiUrl = `${API_FORECAST_URL}?q=${location}&appid=${API_KEY}&units=${units.apiUnitValue}`;
 
   const getWeatherForecast = useCallback(async () => {
-    const apiUrl = `${API_FORECAST_URL}?q=${location}&appid=${API_KEY}&units=${units.apiUnitValue}`;
-
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
@@ -21,37 +21,18 @@ export const WeatherForecast = ({ location, units }) => {
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
-  }, [location, units.apiUnitValue]);
+  }, [apiUrl]);
 
   useEffect(() => {
     getWeatherForecast();
   }, [getWeatherForecast, location, units.apiUnitValue]);
 
   return (
-    <div className='px-8 flex flex-col gap-2'>
-      <h2>5-Day Weather Forecast</h2>
-      <div className='flex'>
+    <div className='mt-8 flex flex-col gap-2'>
+      <h2 className='text-xl'>5-Day Weather Forecast</h2>
+      <div className='flex justify-around'>
         {forecast.map((day) => (
-          <div key={day.dt} className='flex flex-col items-center gap-0.5'>
-            <h3>
-              {new Date(day.dt_txt).toLocaleDateString('en-US', {
-                weekday: 'long',
-              })}
-            </h3>
-            <p>
-              High: {day.main.temp_max}°{units.symbol}
-            </p>
-            <p>
-              Low: {day.main.temp_min}°{units.symbol}
-            </p>
-            <p>{day.weather[0].description}</p>
-            <div>
-              <img
-                src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`}
-                alt={day.weather[0].description}
-              />
-            </div>
-          </div>
+          <WeatherCard key={day.dt} day={day} units={units} />
         ))}
       </div>
     </div>
