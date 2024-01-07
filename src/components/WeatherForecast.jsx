@@ -26,11 +26,11 @@ export const WeatherForecast = ({ location, units }) => {
   }, [location, units.apiUnitValue]);
 
   return (
-    <div>
+    <div className='p-8 flex flex-col gap-2'>
       <h2>5-Day Weather Forecast</h2>
-      <div id="forecast-container">
+      <div className='flex'>
         {forecast.map(day => (
-          <div key={day.dt} className="day-card">
+          <div key={day.dt} className="flex flex-col items-center gap-0.5">
             <h3>{new Date(day.dt_txt).toLocaleDateString('en-US', { weekday: 'long' })}</h3>
             <p>High: {day.main.temp_max}°{units.symbol}</p>
             <p>Low: {day.main.temp_min}°{units.symbol}</p>

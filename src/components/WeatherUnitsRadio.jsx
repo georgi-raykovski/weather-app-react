@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export const WeatherUnitsRadio = ({ handleTemperatureUnitChange, selected }) => {
   return (
     <div>
-      <label htmlFor='celcius'>
+      <label htmlFor='celcius' className='p-1'>
         <input
           type="radio"
           value="celcius"
@@ -16,7 +16,7 @@ export const WeatherUnitsRadio = ({ handleTemperatureUnitChange, selected }) => 
         />
         Celsius
       </label>
-      <label htmlFor='fahrenheit'>
+      <label htmlFor='fahrenheit' className='p-1'>
         <input
           type="radio"
           value="fahrenheit"
@@ -27,7 +27,7 @@ export const WeatherUnitsRadio = ({ handleTemperatureUnitChange, selected }) => 
         />
         Fahrenheit
       </label>
-      <label htmlFor='kelvin'>
+      <label htmlFor='kelvin' className='p-1'>
         <input
           type="radio"
           value="kelvin"
