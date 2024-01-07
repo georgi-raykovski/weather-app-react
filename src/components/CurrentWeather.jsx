@@ -9,7 +9,7 @@ export const CurrentWeather = ({ weatherData, units }) => {
       {weatherData && (
         <div className='flex gap-8'>
           <div>
-            <h3>
+            <h3 className='text-lg'>
               {weatherData.name}, {weatherData.sys.country}
             </h3>
             <div className='flex gap-0.5'>
