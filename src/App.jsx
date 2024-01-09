@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   CurrentWeather,
   Error,
+  Favorites,
   SkeletonComponent,
   WeatherForecast,
   WeatherUnitsRadio,
@@ -99,7 +100,7 @@ const App = () => {
   };
 
   return (
-    <div className='App min-h-screen p-2 sm:p-8 mb-4 lg:max-w-4xl m-auto'>
+    <div className='App min-h-screen p-2 sm:p-8 mb-4 lg:max-w-4xl m-auto relative'>
       <h1 className='text-4xl'>Weather App</h1>
       <div className='my-6 flex gap-4 flex-col md:items-center md:flex-row justify-between'>
         <div>
@@ -138,6 +139,7 @@ const App = () => {
           </>
         )}
       </div>
+      <Favorites favoritesArray={favorites} />
     </div>
   );
 };
