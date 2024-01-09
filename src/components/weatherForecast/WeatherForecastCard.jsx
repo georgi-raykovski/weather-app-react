@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { capitalizeEveryWord } from '../constants';
-import { getOpenWeatherImageLink } from '../constants/helperMethods';
+import { capitalizeEveryWord } from '../../constants';
+import { getOpenWeatherImageLink } from '../../constants';
 
 const styles = {
   weatherCardContainer:
@@ -12,7 +12,7 @@ const styles = {
   weatherCardFooter: 'flex items-center justify-center lg:flex-col',
 };
 
-export const WeatherCard = ({ day, units }) => {
+export const WeatherForecastCard = ({ day, units }) => {
   const dateString = new Date(day.dt_txt).toLocaleDateString('en-US', {
     weekday: 'long',
   });
@@ -46,7 +46,7 @@ export const WeatherCard = ({ day, units }) => {
   );
 };
 
-WeatherCard.propTypes = {
+WeatherForecastCard.propTypes = {
   day: PropTypes.object,
   units: PropTypes.object,
 };
