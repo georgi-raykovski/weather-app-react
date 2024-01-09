@@ -1,7 +1,7 @@
 export { WeatherForecast } from './WeatherForecast';
-export { Favorites } from './Favorites';
+export { Favorites } from './favoriteTab';
 export { SkeletonComponent } from './skeletonComponents/SkeletonComponent';
 export { CurrentWeather } from './CurrentWeather';
 export { WeatherUnitsRadio } from './WeatherUnitsRadio';
-export * from './skeletonComponents'
-export { Error } from './Error';
+export * from './skeletonComponents';
+export { Error } from './generic';

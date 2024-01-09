@@ -7,13 +7,11 @@ import {
   WeatherForecast,
   WeatherUnitsRadio,
 } from './components';
-import { weatherUnits } from './constants';
+import { FAVORITES_KEY, weatherUnits } from './constants';
 import { useCurrentWeatherData, useWeatherForecast } from './hooks';
 
 const inputStyle =
   'bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500';
-
-const FAVORITES_KEY = 'favorites';
 
 const getInitialFavorites = () => {
   const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) ?? [];
@@ -139,7 +137,7 @@ const App = () => {
           </>
         )}
       </div>
-      <Favorites favoritesArray={favorites} units={units}/>
+      <Favorites favoritesArray={favorites} units={units} />
     </div>
   );
 };

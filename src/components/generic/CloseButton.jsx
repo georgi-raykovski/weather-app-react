@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const closeButtonStyle =
+  'bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500';
+
 export const CloseButton = ({ handleClick }) => {
   return (
-    <button
-      type='button'
-      onClick={handleClick}
-      className='bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
+    <button type='button' onClick={handleClick} className={closeButtonStyle}>
       <span className='sr-only'>Close menu</span>
       <svg
         className='h-6 w-6'
