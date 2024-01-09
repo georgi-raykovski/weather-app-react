@@ -139,7 +139,7 @@ const App = () => {
           </>
         )}
       </div>
-      <Favorites favoritesArray={favorites} />
+      <Favorites favoritesArray={favorites} units={units}/>
     </div>
   );
 };
