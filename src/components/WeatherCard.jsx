@@ -10,14 +10,14 @@ export const WeatherCard = ({ day, units }) => {
           weekday: 'long',
         })}
       </h3>
-      <div className='border-r lg:border-t lg:border-r-0 border-white self-stretch lg:h-auto lg:w-full lg:my-2 opacity-30' />
+      <div className='border-r lg:border-t lg:border-r-0 border-white self-stretch lg:h-auto lg:w-full opacity-30' />
       <p className='text-xs md:text-sm'>
         High: {Math.round(day.main.temp_max)}°{units.symbol}
       </p>
       <p className='text-xs md:text-sm'>
         Low: {Math.round(day.main.temp_min)}°{units.symbol}
       </p>
-      <div className='border-r lg:border-t lg:border-r-0 border-white self-stretch lg:h-auto lg:w-full lg:my-2 opacity-30' />
+      <div className='border-r lg:border-t lg:border-r-0 border-white self-stretch lg:h-auto lg:w-full opacity-30' />
       <div className='flex items-center justify-center lg:flex-col'>
         <p className='text-xs md:text-sm lg:text-base'>
           {capitalizeEveryWord(day.weather[0].description)}
