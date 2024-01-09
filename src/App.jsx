@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   CurrentWeather,
+  Error,
   SkeletonComponent,
   WeatherForecast,
   WeatherUnitsRadio,
@@ -82,14 +83,7 @@ const App = () => {
         />
       </div>
       <div className='flex flex-col justify-between'>
-        {error && (
-          <p className='font-bold'>
-            {error}.<br /> Please enter a valid city name or zip / postal code
-            in the following format (postal-code, country-code)
-            <br /> Eg. Sofia or 1000, BG / Silistra or 7500, BG / London or W1G,
-            GB
-          </p>
-        )}
+        {error && <Error errorMessage={error} />}
         {showSkeletons && !error && <SkeletonComponent />}
         {!showSkeletons && !error && (
           <>
