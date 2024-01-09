@@ -59,9 +59,9 @@ const App = () => {
   const disabledStateOfRadio = !!error || showSkeletons;
 
   return (
-    <div className='App h-screen p-8 max-w-4xl m-auto'>
+    <div className='App min-h-screen p-2 sm:p-8 mb-4 lg:max-w-4xl m-auto'>
       <h1 className='text-4xl'>Weather App</h1>
-      <div className='mt-6 flex justify-between'>
+      <div className='my-6 flex gap-4 flex-col lg:flex-row justify-between'>
         <div>
           <label className='mr-4' htmlFor='city'>
             Enter City:

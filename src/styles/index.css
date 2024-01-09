@@ -8,7 +8,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to bottom, rgb(43,50,178) 0%, rgb(83 165 246) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgb(43, 50, 178) 0%,
+    rgb(83 165 246) 100%
+  );
   color: white;
 }
 
@@ -18,5 +22,14 @@ code {
 }
 
 .forecast-card {
-  background-color: rgba(0,0,0,0.20);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.custom-grid {
+  grid-template-columns: 1fr 1px 0.5fr 0.5fr 1px 1fr;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: none;
+    grid-template-rows: auto 1px auto auto 1px 1fr;
+  }
 }

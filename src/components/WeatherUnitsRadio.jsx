@@ -3,7 +3,7 @@ import { weatherUnits } from '../constants';
 import PropTypes from 'prop-types';
 
 const labelStyles =
-  'block text-black cursor-pointer select-none rounded-xl p-2 text-center peer-disabled:opacity-50 peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200';
+  'text-sm md:text-base block text-black cursor-pointer select-none rounded-xl p-1 md:p-2 text-center peer-disabled:opacity-50 peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200';
 
 export const WeatherUnitsRadio = ({
   handleTemperatureUnitChange,
@@ -11,7 +11,7 @@ export const WeatherUnitsRadio = ({
   error
 }) => {
   return (
-    <div className='grid grid-cols-3 w-[20rem] gap-2 rounded-xl bg-gray-200 p-2'>
+    <div className='grid grid-cols-3 w-[18rem] md:w-[20rem] gap-0 md:gap-2 rounded-xl bg-gray-200 p-2'>
       <div>
         <input
           type='radio'
