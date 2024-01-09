@@ -35,6 +35,7 @@ export const useCurrentWeatherData = (location, units, setError) => {
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
+      setWeatherData(null)
       fetchData();
     }, debounceDelay);
 

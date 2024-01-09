@@ -38,5 +38,5 @@ export const WeatherUnitsRadio = ({
 WeatherUnitsRadio.propTypes = {
   selected: PropTypes.string.isRequired,
   handleTemperatureUnitChange: PropTypes.func,
-  error: PropTypes.string,
+  error: PropTypes.bool,
 };

@@ -12,7 +12,7 @@ export const SkeletonCard = () => {
       <div className='flex items-center justify-center lg:flex-col gap-2'>
         <Skeleton containerClassName='flex-1' />
         <Skeleton
-          containerClassName='flex-1 self-center'
+          containerClassName='flex-1 self-center max-w-[45px]'
           circle
           height={45}
           width={45}

@@ -32,6 +32,7 @@ export const useWeatherForecast = (location, units, setError) => {
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       fetchForecast();
+      setForecast(null)
     }, debounceDelay);
 
     return () => {
