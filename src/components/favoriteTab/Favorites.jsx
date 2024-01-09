@@ -15,11 +15,19 @@ const styles = {
   favoriteCardsContainer: 'max-h-[60vh] overflow-scroll',
 };
 
-export const Favorites = ({ favoritesArray, units }) => {
+const mockWeatherData = [{
+  weather: [{ description: 'sunny' }],
+  name: 'Sunny',
+  sys: { country: 'bg'},
+  id: 123,
+  main: { temp: 12}
+}]
+
+export const Favorites = ({ favoritesArray, units, handleRemoveFavorite }) => {
   const [showFavorites, setShowFavorites] = useState(false);
   const favoritesRef = useRef(null);
   const [favoritesWeatherData, setFavoriteWeatherData] = useState([]);
-
+console.log(favoritesWeatherData);
   const handleToggleFavorites = () => {
     setShowFavorites((prevValue) => !prevValue);
   };
@@ -33,6 +41,12 @@ export const Favorites = ({ favoritesArray, units }) => {
           `${API_ID_URL}=${id}&appid=${API_KEY}&units=${units.apiUnitValue}`
         );
         const data = await response.json();
+
+        if (!response.ok) {
+          console.error('HTTP error:', response.status, response.statusText);
+          return;
+        }
+
         return data;
       } catch (error) {
         console.error(`Error fetching weather data for location ${id}:`, error);
@@ -42,12 +56,24 @@ export const Favorites = ({ favoritesArray, units }) => {
     [units.apiUnitValue]
   );
 
+  const handleRemoval = (id) => {
+    handleRemoveFavorite(id);
+
+    setFavoriteWeatherData((prevValue) =>
+      prevValue.filter((favorite) => favorite.id !== id)
+    );
+  };
+
   useEffect(() => {
     const promises = favoritesArray.map((id) => fetchData(id));
 
     Promise.all(promises)
       .then((allData) => {
-        setFavoriteWeatherData(allData);
+        if (allData[0] === undefined) {
+          setFavoriteWeatherData([]);
+        } else {
+          setFavoriteWeatherData(allData);
+        }
       })
       .catch((error) => {
         console.error('Error fetching favorites weather data:', error);
@@ -72,11 +98,12 @@ export const Favorites = ({ favoritesArray, units }) => {
           <CloseButton handleClick={handleToggleFavorites} />
         </div>
         <div className={styles.favoriteCardsContainer}>
-          {favoritesWeatherData.map((weatherData, favoriteIdx) => (
+          {mockWeatherData.map((weatherData, favoriteIdx) => (
             <FavoriteCard
               key={favoriteIdx}
               weatherData={weatherData}
               unitsSymbol={units.symbol}
+              handleRemoveFavorite={handleRemoval}
             />
           ))}
         </div>
@@ -88,4 +115,5 @@ export const Favorites = ({ favoritesArray, units }) => {
 Favorites.propTypes = {
   favoritesArray: PropTypes.array,
   units: PropTypes.object,
+  handleRemoveFavorite: PropTypes.func,
 };

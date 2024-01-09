@@ -5,10 +5,15 @@ import { getOpenWeatherImageLink } from '../../constants/helperMethods';
 
 const styles = {
   cardContainer:
-    'w-full bg-blue-400 rounded p-2 my-2 grid grid-rows-2 justify-between items-center',
+    'w-full bg-blue-400 rounded p-2 my-2 grid grid-rows-2 grid-cols-1 justify-between items-center',
+  closeButton: 'bg-blue-500 hover:bg-blue-600 p-1 min-w-8 min-h-8 rounded-full',
 };
 
-export const FavoriteCard = ({ weatherData, unitsSymbol }) => {
+export const FavoriteCard = ({
+  weatherData,
+  unitsSymbol,
+  handleRemoveFavorite,
+}) => {
   const weatherDescription = capitalizeEveryWord(
     weatherData.weather[0].description
   );
@@ -17,10 +22,18 @@ export const FavoriteCard = ({ weatherData, unitsSymbol }) => {
 
   return (
     <div className={styles.cardContainer}>
-      <h3 className='font-bold text-base'>
-        {weatherData.name}, {weatherData.sys.country}
-      </h3>
-      <div className='flex items-center justify-between'>
+      <div className='flex gap-4 justify-between items-center'>
+        <h3 className='font-bold text-base'>
+          {weatherData.name}, {weatherData.sys.country}
+        </h3>
+        <button
+          type='button'
+          className={styles.closeButton}
+          onClick={() => handleRemoveFavorite(weatherData.id)}>
+          ✕
+        </button>
+      </div>
+      <div className='flex items-center gap-2'>
         <p className='text-sm'>
           {weatherDescription} {weatherData.main.temp}°{unitsSymbol}
         </p>
@@ -38,4 +51,5 @@ export const FavoriteCard = ({ weatherData, unitsSymbol }) => {
 FavoriteCard.propTypes = {
   weatherData: PropTypes.object,
   unitsSymbol: PropTypes.string,
+  handleRemoveFavorite: PropTypes.func,
 };

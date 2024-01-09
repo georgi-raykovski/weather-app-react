@@ -88,13 +88,21 @@ const App = () => {
     }
 
     if (currentIsFavorite) {
-      const restOfFavorites = favorites.filter(
+      const remainingFavorites = favorites.filter(
         (favoriteId) => favoriteId !== weatherData.id
       );
 
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify(restOfFavorites));
-      setFavorites(restOfFavorites);
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(remainingFavorites));
+      setFavorites(remainingFavorites);
     }
+  };
+
+  const handleRemoveFavorite = (id) => {
+    const remainingFavorites = favorites.filter(
+      (favoriteId) => favoriteId !== id
+    );
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(remainingFavorites));
+    setFavorites(remainingFavorites);
   };
 
   return (
@@ -137,7 +145,11 @@ const App = () => {
           </>
         )}
       </div>
-      <Favorites favoritesArray={favorites} units={units} />
+      <Favorites
+        favoritesArray={favorites}
+        units={units}
+        handleRemoveFavorite={handleRemoveFavorite}
+      />
     </div>
   );
 };
