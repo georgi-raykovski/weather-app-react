@@ -20,7 +20,7 @@ export const SkeletonComponent = () => {
       </div>
       <div className='mt-8 flex flex-col gap-2'>
         <h2 className='text-xl'>5-Day Weather Forecast</h2>
-        <div className='flex justify-between mt-2'>
+        <div className='flex flex-col lg:flex-row justify-between mt-2 gap-4'>
           {Array.from({ length: 5 }).map((_, idx) => (
             <SkeletonCard key={idx} />
           ))}
