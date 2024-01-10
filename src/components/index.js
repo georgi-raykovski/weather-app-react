@@ -5,3 +5,4 @@ export { CurrentWeather } from './CurrentWeather';
 export { WeatherUnitsRadio } from './WeatherUnitsRadio';
 export * from './skeletonComponents';
 export { Error } from './generic';
+export { WeatherLocationSearch } from './WeatherLocationSearch';

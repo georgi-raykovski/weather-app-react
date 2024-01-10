@@ -19,8 +19,5 @@ export const WeatherForecast = ({ units, forecast }) => {
 
 WeatherForecast.propTypes = {
   forecast: PropTypes.array.isRequired,
-  units: PropTypes.shape({
-    apiUnitValue: PropTypes.string.isRequired,
-    symbol: PropTypes.string.isRequired,
-  }),
+  units: PropTypes.object,
 };
