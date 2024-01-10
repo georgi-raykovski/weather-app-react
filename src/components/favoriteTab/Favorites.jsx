@@ -15,19 +15,11 @@ const styles = {
   favoriteCardsContainer: 'max-h-[60vh] overflow-scroll',
 };
 
-const mockWeatherData = [{
-  weather: [{ description: 'sunny' }],
-  name: 'Sunny',
-  sys: { country: 'bg'},
-  id: 123,
-  main: { temp: 12}
-}]
-
 export const Favorites = ({ favoritesArray, units, handleRemoveFavorite }) => {
   const [showFavorites, setShowFavorites] = useState(false);
   const favoritesRef = useRef(null);
   const [favoritesWeatherData, setFavoriteWeatherData] = useState([]);
-console.log(favoritesWeatherData);
+
   const handleToggleFavorites = () => {
     setShowFavorites((prevValue) => !prevValue);
   };
@@ -98,7 +90,7 @@ console.log(favoritesWeatherData);
           <CloseButton handleClick={handleToggleFavorites} />
         </div>
         <div className={styles.favoriteCardsContainer}>
-          {mockWeatherData.map((weatherData, favoriteIdx) => (
+          {favoritesWeatherData.map((weatherData, favoriteIdx) => (
             <FavoriteCard
               key={favoriteIdx}
               weatherData={weatherData}
